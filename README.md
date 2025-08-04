@@ -1,10 +1,16 @@
-# Sideways Experiments Unity Package (@todo)
+# Asset Templates
 
-<!-- @todo Write package description and minimum Unity version if applicable -->
+Utility for creating text assets from user-defined templates, whether they are scripts, data or any kind of serialized object.
+
+You can create those assets based on templates from a menu, or automate their use by name pattern or target folder.
 
 ## Features
 
-<!-- @todo Describe the features included in this package -->
+- Define template files for assets
+- Trigger script generation as template
+- Use template by name pattern (eg. add a suffix `-Component` to generate a component script)
+- Use template by folder location
+- Declare and set options for all the templates in your project
 
 ## Installation
 
@@ -28,7 +34,7 @@
 
 ## Documentation & Help
 
-Complete documentation available at https://side-xp.github.io/@todo
+Complete documentation available at https://side-xp.github.io/unity-asset-templates
 
 If you need help or just want to chat with the community and the *Sideways Experiments* core team, you're welcome to join our [Discord server](https://discord.gg/bMK2d47JaE)!
 
