@@ -114,10 +114,13 @@ namespace SideXP.AssetTemplates.EditorOnly
                 // Create the script depending on the generated content
                 if (!string.IsNullOrWhiteSpace(output.Content))
                 {
-                    if (output.Path.EndsWith(".cs"))
-                        ProjectWindowUtil.CreateScriptAssetWithContent(output.Path, output.Content);
-                    else
-                        ProjectWindowUtil.CreateAssetWithContent(output.Path, output.Content);
+                    /**
+                     * @note
+                     * Even if the name doesn't suggest it, this function can be used to create assets that are not scripts but still
+                     * contain text (so it's applicable for C#, JSON, regular *.asset, ...). Internally, it just write the given content
+                     * into a file using System.IO.File.WriteAllText(), and reimport the asset.
+                     */
+                    ProjectWindowUtil.CreateScriptAssetWithContent(output.Path, output.Content);
                 }
                 else
                 {
