@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using SideXP.Core;
 
 namespace SideXP.AssetTemplates.EditorOnly
@@ -12,34 +10,27 @@ namespace SideXP.AssetTemplates.EditorOnly
     {
 
         /// <summary>
-        /// 
+        /// The path to the generated asset, relative to the Assets/ folder of the project.
         /// </summary>
-        private List<string> _paths;
+        private string _path;
 
         /// <summary>
-        /// States that the template has generated an asset at a given path.
+        /// The content of the asset to generate.
         /// </summary>
-        /// <remarks>
-        /// This is used to make sure Unity imports and updates the database as expected.
-        /// </remarks>
-        /// <param name="path">The path (relative to the Assets/ folder of the project) of the created asset.</param>
-        public void DidGenerateAssetAtPath(string path)
+        private string _content;
+
+        /// <inheritdoc cref="_path"/>
+        public string Path
         {
-            path = path.ToRelativePath();
-            if (!_paths.Contains(path))
-                _paths.Add(path);
+            get => _path;
+            set => _path = !string.IsNullOrWhiteSpace(value) ? value.ToRelativePath() : string.Empty;
         }
 
-        /// <summary>
-        /// Gets the paths to the generated assets.
-        /// </summary>
-        public string[] Paths
+        /// <inheritdoc cref="_content"/>
+        public string Content
         {
-            get
-            {
-                _paths.RemoveAll(i => string.IsNullOrEmpty(i));
-                return _paths.ToArray();
-            }
+            get => _content;
+            set => _content = value;
         }
 
     }

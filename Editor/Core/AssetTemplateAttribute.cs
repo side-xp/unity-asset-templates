@@ -4,7 +4,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 {
 
     /// <summary>
-    /// Links additional informations to an <see cref="IAssetTemplateGenerator"/> class for users.
+    /// Links additional informations to an <see cref="IAssetTemplate"/> class for users.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class AssetTemplateAttribute : Attribute
@@ -27,7 +27,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         public string[] Triggers { get; set; } = null;
 
         /// <summary>
-        /// By default, template generators are all enabled. If this option is checked, this template will be disabled by default.
+        /// By default, asset templates are all enabled. If this option is checked, this template will be disabled by default.
         /// </summary>
         /// <remarks>This is mostly meant to reusability, to make sure that this template won't be conflicting when copied to another
         /// project if it alters the normal behavior of Unity.</remarks>
