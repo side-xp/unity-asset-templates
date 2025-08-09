@@ -1,6 +1,8 @@
 using SideXP.Core;
 
 using System;
+
+using UnityEditor;
 namespace SideXP.AssetTemplates.EditorOnly
 {
 
@@ -56,7 +58,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             Extension = System.IO.Path.GetExtension(path);
             // Remove the "." character of the extension, if any
             if (!string.IsNullOrEmpty(Extension))
-                Extension = Extension.Substring(0, 1);
+                Extension = Extension.Substring(1, Extension.Length - 1);
 
             Namespace = namespaceStr;
             ParentPath = parentPath;
@@ -74,20 +76,45 @@ namespace SideXP.AssetTemplates.EditorOnly
         public string Path => GetUniquePath(Name);
 
         /// <summary>
-        /// Gets the full path to the asset to create with a given name, relative from this project's root directory.
+        /// Renames the asset to generate.
+        /// </summary>
+        /// <remarks>This function uses <see cref="AssetDatabase.GenerateUniqueAssetPath(string)"/> internally to make sure tthat the
+        /// output path is valid. So the final path and name may end with an increment if another asset exists at the same path.</remarks>
+        /// <param name="name">The name to set.</param>
+        public void Rename(string name)
+        {
+            string path = GetUniquePath(name);
+            Location = System.IO.Path.GetDirectoryName(path);
+            Name = System.IO.Path.GetFileNameWithoutExtension(path);
+        }
+
+        /// <inheritdoc cref="object.ToString"/>
+        public override string ToString()
+        {
+            return $"{nameof(AssetInfo)} \"{Path}\" (more details below):" +
+                $"\n- {nameof(Name)}: {Name}" +
+                $"\n- {nameof(Extension)}: {Extension}" +
+                $"\n- {nameof(Location)}: {Location}" +
+                $"\n- {nameof(Namespace)}: {Namespace}" +
+                $"\n- {nameof(ParentPath)}: {ParentPath}" +
+                $"\n- {nameof(ParentType)}: {(ParentType != null ? ParentType.FullName : string.Empty)}";
+        }
+
+        /// <summary>
+        /// Gets the path to the asset to create with a given name, relative from this project's root directory.
         /// </summary>
         /// <param name="name">The name of the asset to create.</param>
         /// <returns>Returns the processed path.</returns>
         private string GetUniquePath(string name)
         {
-            string output = $"{Location}/{Name}";
+            string output = $"{Location.ToRelativePath()}/{name}";
             string ext = Extension;
             if (string.IsNullOrWhiteSpace(ext))
                 ext = AssetTemplatesConfig.DefaultExtension;
             if (!string.IsNullOrWhiteSpace(ext))
                 output += $".{ext}";
 
-            return output.ToRelativePath();
+            return AssetDatabase.GenerateUniqueAssetPath(output);
         }
 
     }
