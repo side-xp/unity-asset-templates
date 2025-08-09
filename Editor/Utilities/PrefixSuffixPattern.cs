@@ -109,14 +109,21 @@ namespace SideXP.AssetTemplates.EditorOnly
             _suffixes.Add(suffix, options);
         }
 
+        /// <inheritdoc cref="Match(string, out string, out string, out bool)"/>
+        public bool Match(string name)
+        {
+            return Match(name, out _, out _, out _);
+        }
+
         /// <summary>
         /// Checks if one of the defiend parts match.
         /// </summary>
         /// <param name="name">The name to match.</param>
         /// <param name="outputName">Outputs the "final" name, after removing the matching part if needed.</param>
         /// <param name="matchingPart">Outputs the part that validated the match.</param>
+        /// <param name="isPrefix">Outputs true if the matching part is a prefix, or false if the macthing part is a suffix.</param>
         /// <returns>Returns true if one of the defined parts has matched.</returns>
-        public bool Match(string name, out string outputName, out string matchingPart)
+        public bool Match(string name, out string outputName, out string matchingPart, out bool isPrefix)
         {
             name = name.Trim();
 
@@ -155,6 +162,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                     ? name.Substring(match.Groups["prefix"].Value.Length)
                     : name;
                 outputName.Trim();
+                isPrefix = true;
                 return true;
             }
 
@@ -188,11 +196,13 @@ namespace SideXP.AssetTemplates.EditorOnly
                     ? name.Substring(0, match.Index)
                     : name;
                 outputName.Trim();
+                isPrefix = false;
                 return true;
             }
 
             outputName = name;
             matchingPart = null;
+            isPrefix = false;
             return false;
         }
 

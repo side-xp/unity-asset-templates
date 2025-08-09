@@ -38,14 +38,14 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <inheritdoc cref="IAssetTemplate.CanGenerateAsset(AssetInfo)"/>
         public bool CanGenerateAsset(AssetInfo info)
         {
-            return s_pattern.Match(info.Name, out _, out _);
+            return s_pattern.Match(info.Name);
         }
 
         /// <inheritdoc cref="IAssetTemplate.GenerateAsset(AssetInfo, ref AssetOutputInfo)"/>
         public bool GenerateAsset(AssetInfo info, ref AssetOutputInfo output)
         {
             // Cancel if the class name can't be processed
-            if (!s_pattern.Match(info.Name, out string className, out string matchingPart))
+            if (!s_pattern.Match(info.Name, out string className, out string matchingPart, out _))
             {
                 Debug.LogError("Faield to generate class (or struct) from the \"Class / Struct\" asset template: invalid class name");
                 return false;
