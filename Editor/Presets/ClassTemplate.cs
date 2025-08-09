@@ -1,6 +1,5 @@
 using System;
 using System.CodeDom;
-using System.Text.RegularExpressions;
 
 using UnityEngine;
 
@@ -11,10 +10,8 @@ namespace SideXP.AssetTemplates.EditorOnly
     [AssetTemplate(
         "Class / Struct",
         "Generates a script for a native class.\nIf a script is selected, the generated class will inherit from it.",
-        "\"class-\" prefix  (followed by space or uppercase letter)",
-        "\"-Class\" suffix",
-        "\"struct-\" prefix (followed by space or uppercase letter, generates a struct instead)",
-        "\"-Struct\" suffix (generates a struct instead)"
+        "\"class-\" prefix (followed by space or uppercase letter)",
+        "\"struct-\" prefix (followed by space or uppercase letter, generates a struct instead)"
     )]
     public class ClassTemplate : IAssetTemplate
     {
