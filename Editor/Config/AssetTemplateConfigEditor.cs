@@ -115,6 +115,21 @@ namespace SideXP.AssetTemplates.EditorOnly
                             GUIContent label = templateAttribute != null && !string.IsNullOrWhiteSpace(templateAttribute.Name)
                                 ? new GUIContent(templateAttribute.Name, templateAttribute.Description)
                                 : new GUIContent(templateType.Name);
+
+                            // Add triggers to the tooltip
+                            if (templateAttribute != null && templateAttribute.Triggers.Length > 0)
+                            {
+                                if (!string.IsNullOrWhiteSpace(label.tooltip))
+                                    label.tooltip += "\n\n";
+                                label.tooltip += "Triggers:";
+
+                                foreach (string trigger in templateAttribute.Triggers)
+                                {
+                                    if (!string.IsNullOrWhiteSpace(trigger))
+                                        label.tooltip += $"\n    - {trigger}";
+                                }
+                            }
+
                             isExpanded = EditorGUI.Foldout(rect, isExpanded, label, true, EditorStyles.foldout.RichText(true));
 
                             // Update the expanded elements list
