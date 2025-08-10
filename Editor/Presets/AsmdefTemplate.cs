@@ -31,9 +31,6 @@ namespace SideXP.AssetTemplates.EditorOnly
         private const string EditorNamespaceReplacement = "EditorOnly";
         private const string UnityPart = "Unity";
 
-        [Tooltip("If checked, the [Serializable] attribute will be added to the generated class.")]
-        public bool SerializableByDefault = true;
-
         [Tooltip("If checked, the \"Root Namespace\" property of the assembly definition is set, based on its name." +
             "\nNote that \"." + EditorPart + "\" will become \"." + EditorNamespaceReplacement + "\". Also, if the name includes \"." + UnityPart + "\", that part will be removed." +
             "\nExamples:" +
