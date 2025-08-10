@@ -1,8 +1,8 @@
 {
-  "name": "com.side-xp.@todo",
-  "version": "0.0.0",
-  "description": "@todo",
-  "displayName": "SideXP - @todo",
+  "name": "com.side-xp.asset-templates",
+  "version": "1.0.0",
+  "description": "Utility for creating text assets from user-defined templates, whether they are scripts, data or any kind of serialized object.",
+  "displayName": "SideXP - Asset Templates",
   "unity": "2021.3",
   "author": {
     "name": "Sideways Experiments",
