@@ -1,3 +1,4 @@
+using System;
 using System.CodeDom;
 using System.Reflection;
 
@@ -7,7 +8,6 @@ using UnityEditor;
 using SideXP.Core;
 
 using Object = UnityEngine.Object;
-using System;
 
 namespace SideXP.AssetTemplates.EditorOnly
 {

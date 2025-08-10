@@ -99,18 +99,6 @@ namespace SideXP.AssetTemplates.EditorOnly
             info.Rename(className);
             scriptGenerator.MainClass.Name = info.Name;
 
-            // [AddComponentMenu] attribute
-            {
-                string componentMenu = ObjectNames.NicifyVariableName(info.Name);
-                if (!string.IsNullOrWhiteSpace(BaseAddComponentMenu))
-                    componentMenu = $"{BaseAddComponentMenu}/{componentMenu}";
-
-                scriptGenerator.MainClass.CustomAttributes.Add(new CodeAttributeDeclaration(scriptGenerator.GetTypeReference<AddComponentMenu>(), new CodeAttributeArgument[]
-                {
-                    new CodeAttributeArgument(new CodePrimitiveExpression(componentMenu))
-                }));
-            }
-
             output.Path = info.Path;
             output.Content = scriptGenerator.Generate();
 
