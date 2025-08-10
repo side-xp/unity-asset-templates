@@ -15,7 +15,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         "\"comp-\" prefix (followed by space or uppercase letter)",
         "\"-Comp\" suffix",
         "\"component-\" prefix (followed by space or uppercase letter)",
-        "\"-Component\" suffix" +
+        "\"-Component\" suffix",
         "If another Component script is currently selected, try to inherit from it"
     )]
     public class ComponentTemplate : IAssetTemplate

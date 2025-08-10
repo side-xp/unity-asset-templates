@@ -16,7 +16,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         "Generates a script for a custom Editor.",
         "\"editor-\" prefix (followed by space or uppercase letter)",
         "\"-Editor\" suffix" +
-        "If another Object script is currently selected, it's used as value for the [CustomEditor] attribute"+
+        "If another Object script is currently selected, it's used as value for the [CustomEditor] attribute",
         "\"editor\" alone, if another Object script is currently selected, so the name of the class will be [selected parent]Editor"
     )]
     public class CustomEditorTemplate : IAssetTemplate
