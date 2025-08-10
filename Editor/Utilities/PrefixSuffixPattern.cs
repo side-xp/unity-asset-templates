@@ -161,7 +161,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                 outputName = options.RemovePart
                     ? name.Substring(match.Groups["prefix"].Value.Length)
                     : name;
-                outputName.Trim();
+                outputName = outputName.Trim();
                 isPrefix = true;
                 return true;
             }
@@ -195,7 +195,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                 outputName = options.RemovePart
                     ? name.Substring(0, match.Index)
                     : name;
-                outputName.Trim();
+                outputName = outputName.Trim();
                 isPrefix = false;
                 return true;
             }
