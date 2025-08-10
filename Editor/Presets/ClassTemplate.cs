@@ -11,7 +11,8 @@ namespace SideXP.AssetTemplates.EditorOnly
         "Class / Struct",
         "Generates a script for a native class.\nIf a script is selected, the generated class will inherit from it.",
         "\"class-\" prefix (followed by space or uppercase letter)",
-        "\"struct-\" prefix (followed by space or uppercase letter, generates a struct instead)"
+        "\"struct-\" prefix (followed by space or uppercase letter, generates a struct instead)" +
+        "If another script is currently selected, try to inherit from it"
     )]
     public class ClassTemplate : IAssetTemplate
     {
@@ -36,7 +37,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             // Cancel if the class name can't be processed
             if (!s_pattern.Match(info.Name, out string className, out string matchingPart, out _))
             {
-                Debug.LogError("Faield to generate class (or struct) from the \"Class / Struct\" asset template: invalid class name");
+                Debug.LogError("Failed to generate class (or struct) from the \"Class / Struct\" asset template: invalid class name");
                 return false;
             }
 

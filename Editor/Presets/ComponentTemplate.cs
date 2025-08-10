@@ -15,7 +15,8 @@ namespace SideXP.AssetTemplates.EditorOnly
         "\"comp-\" prefix (followed by space or uppercase letter)",
         "\"-Comp\" suffix",
         "\"component-\" prefix (followed by space or uppercase letter)",
-        "\"-Component\" suffix"
+        "\"-Component\" suffix" +
+        "If another Component script is currently selected, try to inherit from it"
     )]
     public class ComponentTemplate : IAssetTemplate
     {
@@ -50,7 +51,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             // Cancel if the class name can't be processed
             if (!s_pattern.Match(info.Name, out string className, out string matchingPart, out bool isPrefix))
             {
-                Debug.LogError("Faield to generate class (or struct) from the \"Class / Struct\" asset template: invalid class name");
+                Debug.LogError("Failed to generate class (or struct) from the \"Component\" asset template: invalid class name");
                 return false;
             }
 
@@ -71,6 +72,18 @@ namespace SideXP.AssetTemplates.EditorOnly
                 scriptGenerator.MainClass.CustomAttributes.Add(new CodeAttributeDeclaration(scriptGenerator.GetTypeReference<HelpURLAttribute>(), new CodeAttributeArgument[]
                 {
                     new CodeAttributeArgument(new CodePrimitiveExpression(BaseHelpURL))
+                }));
+            }
+
+            // [AddComponentMenu] attribute
+            {
+                string componentMenu = ObjectNames.NicifyVariableName(info.Name);
+                if (!string.IsNullOrWhiteSpace(BaseAddComponentMenu))
+                    componentMenu = $"{BaseAddComponentMenu}/{componentMenu}";
+
+                scriptGenerator.MainClass.CustomAttributes.Add(new CodeAttributeDeclaration(scriptGenerator.GetTypeReference<AddComponentMenu>(), new CodeAttributeArgument[]
+                {
+                    new CodeAttributeArgument(new CodePrimitiveExpression(componentMenu))
                 }));
             }
 
