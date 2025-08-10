@@ -73,10 +73,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             private IAssetTemplate _instance = null;
 
             public AssetTemplateInfo(Type assetTemplateType)
-            {
-                Type = assetTemplateType;
-                Settings = new SerializedAssetTemplateSettings(assetTemplateType);
-            }
+                : this (assetTemplateType, new SerializedAssetTemplateSettings(assetTemplateType)) { }
 
             public AssetTemplateInfo(Type assetTemplateType, SerializedAssetTemplateSettings settings)
             {
@@ -101,6 +98,17 @@ namespace SideXP.AssetTemplates.EditorOnly
                         {
                             Debug.LogException(e);
                             Debug.LogError($"Failed to create an instance of an Asset Template of type {Type.FullName}. See previous log for more info.");
+                            return null;
+                        }
+
+                        try
+                        {
+                            EditorJsonUtility.FromJsonOverwrite(Settings.Json, _instance);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogException(e);
+                            Debug.LogError($"Failed to apply the settings to the Asset Template of type {Type.FullName}. See previous log for more info.");
                         }
                     }
                     return _instance;
@@ -286,8 +294,11 @@ namespace SideXP.AssetTemplates.EditorOnly
             SerializedAssetTemplatesSettingsGroup group = null;
             using (var list = new ListPoolScope<SerializedAssetTemplateSettings>())
             {
-                foreach ((Type t, AssetTemplateInfo info) in s_assetTemplates)
+                foreach ((Type t, AssetTemplateInfo info) in AssetTemplates)
+                {
+                    info.Settings.Json = EditorJsonUtility.ToJson(info.Instance);
                     list.Add(info.Settings);
+                }
 
                 group = new SerializedAssetTemplatesSettingsGroup(list.ToArray());
             }
@@ -317,6 +328,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             }
             return settingsGroup;
         }
+
 
     }
 

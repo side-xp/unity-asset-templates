@@ -1,11 +1,9 @@
-using SideXP.Core;
-
-using System;
 using System.CodeDom;
 
+using UnityEngine;
 using UnityEditor;
 
-using UnityEngine;
+using SideXP.Core;
 
 namespace SideXP.AssetTemplates.EditorOnly
 {
