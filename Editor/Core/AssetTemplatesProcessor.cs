@@ -128,6 +128,9 @@ namespace SideXP.AssetTemplates.EditorOnly
                 // Note that empty scripts are not allowed, and the default script tample will be used instead
                 if (output.Content != null || !output.Path.EndsWith("cs"))
                 {
+                    if (output.Content == null)
+                        output.Content = string.Empty;
+
                     /**
                      * @note
                      * Even if the name doesn't suggest it, this function can be used to create assets that are not scripts but still
