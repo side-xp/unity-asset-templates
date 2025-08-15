@@ -121,9 +121,29 @@ Generates a script that declares an interface.
 
 If another script is selected or you right-clicked on a script when using the menu, the generated script will inherit from it only if that parent type is also an interface.
 
+## JSON
+
+Generates a JSON (`*.json`) file.
+
+### Triggers
+
+- File extension is `*.json`
+- `json` alone, with a [`ScriptableObject`](https://docs.unity3d.com/ScriptReference/ScriptableObject.html) or [serializable](https://learn.microsoft.com/dotnet/api/system.serializableattribute) class script selected, or with any asset but a script selected
+
+### Special rules
+
+When using the `json` shortcut with an object selected:
+
+- If the selected object is an asset that is not a script, the output file will contain the serialized JSON representation of that asset
+- If the selected object is a script asset, the asset template will try to create an instance of it, serialize it as JSON, and put that JSON as content of the output file
+
 ## MarkDown
 
 Generates an empty *MarkDown* file (`*.md`).
+
+### Triggers
+
+- File extension is `*.md`
 
 ## Package Manifest
 
@@ -165,6 +185,10 @@ If another script is selected or you right-clicked on a script when using the me
 ## Text
 
 Generates an empty text file (`*.txt`).
+
+### Triggers
+
+- File extension is `*.txt`
 
 ## Utility class
 
