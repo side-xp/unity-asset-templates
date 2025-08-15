@@ -10,7 +10,7 @@ namespace SideXP.AssetTemplates.EditorOnly
     [System.Serializable]
     [AssetTemplate(
         "Editor Window",
-        "Generates a script for a custom editor window.",
+        "Generates a script for a custom editor window. The script will be created in an Editor/ folder if not initially placed inside.",
         "\"window-\" prefix (followed by space or uppercase letter)",
         "\"-EditorWindow\" suffix"
     )]
@@ -23,7 +23,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         private const string WindowVar = "window";
 
         /// <summary>
-        /// The pattern for matching prefix or suffix.
+        /// The pattern for matching prefixes or suffixes.
         /// </summary>
         private static PrefixSuffixPattern s_pattern = null;
 
@@ -84,7 +84,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             scriptGenerator.MainClass.Members.Add(new CodeMemberField(typeof(string), MenuItemConst)
             {
                 Attributes = MemberAttributes.Private | MemberAttributes.Const,
-                InitExpression = new CodePrimitiveExpression($"{WindowMenuBase}/{title}")
+                InitExpression = new CodeSnippetExpression($"\"{WindowMenuBase}/\" + {WindowTitleConst}")
             });
 
             // Create Open() method
@@ -152,6 +152,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
             output.Path = info.Path;
             output.Content = scriptGenerator.Generate();
+            output.IsEditorContent = true;
 
             return true;
 

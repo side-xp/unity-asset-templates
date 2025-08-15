@@ -14,8 +14,6 @@ You can create those assets based on templates from a menu, or automate their us
 
 ## Documentation & Help
 
-Complete documentation available at https://side-xp.github.io/unity-asset-templates
-
 If you need help or just want to chat with the community and the *Sideways Experiments* core team, you're welcome to join our [Discord server](https://discord.gg/bMK2d47JaE)!
 
 ## Contributing

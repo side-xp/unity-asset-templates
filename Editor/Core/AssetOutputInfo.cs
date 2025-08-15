@@ -19,6 +19,11 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// </summary>
         private string _content;
 
+        /// <summary>
+        /// If enabled, the asset template processor will make sure that the created asset is placed in an Editor/ folder.
+        /// </summary>
+        private bool _isEditorContent;
+
         /// <inheritdoc cref="_path"/>
         public string Path
         {
@@ -31,6 +36,29 @@ namespace SideXP.AssetTemplates.EditorOnly
         {
             get => _content;
             set => _content = value;
+        }
+
+        /// <inheritdoc cref="_isEditorContent"/>
+        public bool IsEditorContent
+        {
+            get => _isEditorContent;
+            set => _isEditorContent = value;
+        }
+
+        /// <summary>
+        /// Sets the extension of the output file.
+        /// </summary>
+        /// <remarks>This function will update the <see cref="Path"/> value accordingly.</remarks>
+        /// <param name="extension">The extension to set (without the "." char).</param>
+        /// <returns>Returns the new path, with the extension changed.</returns>
+        public string SetExtension(string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+                return Path;
+
+            _path = Path.Substring(0, Path.Length - (System.IO.Path.GetExtension(Path).Length - 1));
+            _path += extension;
+            return _path;
         }
 
     }

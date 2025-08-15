@@ -33,6 +33,11 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// project if it alters the normal behavior of Unity.</remarks>
         public bool DisabledByDefault { get; set; } = false;
 
+        /// <summary>
+        /// The order in which this template should be processed. The lower the value, the first.
+        /// </summary>
+        public int Order { get; set; } = 0;
+
         /// <inheritdoc cref="AssetTemplateAttribute(string, string, string[])"/>
         public AssetTemplateAttribute(string name)
             : this(name, null) { }

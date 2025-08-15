@@ -163,8 +163,10 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <summary>
         /// Gets the type of all the available asset template in the project.
         /// </summary>
+        /// <param name="sortByOrder">By default, asset templates are sorted by name (for display purposes). If enabled, the asset
+        /// templates will also be sorted by their <see cref="AssetTemplateAttribute.Order"/> value if defined.</param>
         /// <returns>Returns the type of all the available asset template in the project.</returns>
-        public static Type[] GetAvailableAssetTemplateTypes()
+        public static Type[] GetAvailableAssetTemplateTypes(bool sortByOrder = false)
         {
             using (var scope = new ListPoolScope<Type>())
             {
@@ -176,6 +178,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                     scope.List.Add(t);
                 }
 
+                // Sort by name (using the "display name" from the [AssetTemplate] attribute if applicable)
                 scope.List.Sort((a, b) =>
                 {
                     string aName = a.Name;
@@ -188,6 +191,24 @@ namespace SideXP.AssetTemplates.EditorOnly
 
                     return aName.CompareTo(bName);
                 });
+
+                // Sort by order ascending if applicable
+                if (sortByOrder)
+                {
+                    scope.List.Sort((a, b) =>
+                    {
+                        int aOrder = 0;
+                        if (a.TryGetAttribute(out AssetTemplateAttribute templateAttrA))
+                            aOrder = templateAttrA.Order;
+
+                        int bOrder = 0;
+                        if (b.TryGetAttribute(out AssetTemplateAttribute templateAttrB))
+                            bOrder = templateAttrB.Order;
+
+                        return aOrder.CompareTo(bOrder);
+                    });
+                }
+
                 return scope.List.ToArray();
             }
         }

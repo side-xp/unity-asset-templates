@@ -16,13 +16,13 @@ namespace SideXP.AssetTemplates.EditorOnly
         "\"-Comp\" suffix",
         "\"component-\" prefix (followed by space or uppercase letter)",
         "\"-Component\" suffix",
-        "If another Component script is currently selected, try to inherit from it"
+        "If another Component or Interface script is currently selected, try to inherit from it"
     )]
     public class ComponentTemplate : IAssetTemplate
     {
 
         /// <summary>
-        /// The pattern for matching prefix or suffix.
+        /// The pattern for matching prefixes or suffixes.
         /// </summary>
         private static PrefixSuffixPattern s_pattern = new PrefixSuffixPattern("comp", "component");
 
@@ -57,7 +57,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
             ScriptGenerator scriptGenerator = new ScriptGenerator(info);
             // Inherit from the parent type if applicable and if it derives from MonoBegaviour
-            if (scriptGenerator.Info.ParentType != null && scriptGenerator.Info.ParentType.Is(typeof(MonoBehaviour)))
+            if (scriptGenerator.Info.ParentType != null && scriptGenerator.Info.ParentType.Inherits(typeof(MonoBehaviour)))
                 scriptGenerator.InheritFromContext();
             // Otherwuse just inherit from MonoBehaviour
             else
@@ -77,7 +77,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
             // [AddComponentMenu] attribute
             {
-                string componentMenu = ObjectNames.NicifyVariableName(info.Name);
+                string componentMenu = ObjectNames.NicifyVariableName(className);
                 if (!string.IsNullOrWhiteSpace(BaseAddComponentMenu))
                     componentMenu = $"{BaseAddComponentMenu}/{componentMenu}";
 

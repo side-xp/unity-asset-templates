@@ -15,7 +15,7 @@ namespace SideXP.AssetTemplates.EditorOnly
     [System.Serializable]
     [AssetTemplate(
         "Property Drawer",
-        "Generate a script for a custom property drawer.",
+        "Generate a script for a custom property drawer. The script will be created in an Editor/ folder if not initially placed inside.",
         "\"drawer-\" prefix (followed by space or uppercase letter)",
         "\"-PropertyDrawer\" suffix",
         "\"drawer\" alone, if another script is currently selected, so the name of the class will be [selected parent]PropertyDrawer"
@@ -30,7 +30,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         private const string LabelParam = "label";
 
         /// <summary>
-        /// The pattern for matching prefix or suffix.
+        /// The pattern for matching prefixes or suffixes.
         /// </summary>
         private static PrefixSuffixPattern s_pattern = null;
 
@@ -146,6 +146,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             scriptGenerator.MainClass.Name = info.Name;
             output.Path = info.Path;
             output.Content = scriptGenerator.Generate();
+            output.IsEditorContent = true;
 
             return true;
         }

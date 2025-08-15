@@ -54,6 +54,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         private const string CreateScriptFromTemplateMethodName = "CreateScriptAssetFromTemplate";
 
         // Paths
+        private const string EditorFolder = "Editor";
         private const string TargetScriptTemplatesDirectory = "Data/Resources/ScriptTemplates";
         private static readonly string ScriptTemplatesDirectory = null;
 
@@ -87,14 +88,19 @@ namespace SideXP.AssetTemplates.EditorOnly
 
                 // Process inheritance
                 string inheritFromPath = null;
-                if (ScriptUtility.TryGetDeclaredType(s_selectedObjectBeforeAction as TextAsset, out Type baseType))
+                Type baseType = null;
+                if (s_selectedObjectBeforeAction != null)
+                {
                     inheritFromPath = AssetDatabase.GetAssetPath(s_selectedObjectBeforeAction);
+                    ScriptUtility.TryGetDeclaredType(s_selectedObjectBeforeAction as TextAsset, out baseType);
+                }
 
                 AssetInfo info = new AssetInfo(pathName, namespaceStr, inheritFromPath, baseType);
                 AssetOutputInfo output = new AssetOutputInfo { Path = info.Path };
 
                 // Try to generate the content from the appropriate asset template
-                foreach (Type assetTemplateType in AssetTemplatesUtility.GetAvailableAssetTemplateTypes())
+                Type triggeredAssetTemplateType = null;
+                foreach (Type assetTemplateType in AssetTemplatesUtility.GetAvailableAssetTemplateTypes(true))
                 {
                     IAssetTemplate assetTemplate = AssetTemplatesUtility.GetAssetTemplateInstance(assetTemplateType);
                     // Skip if the asset template is not valid or disabled
@@ -105,15 +111,60 @@ namespace SideXP.AssetTemplates.EditorOnly
                     if (!assetTemplate.CanGenerateAsset(info))
                         continue;
 
+                    triggeredAssetTemplateType = assetTemplateType;
                     if (!assetTemplate.GenerateAsset(info, ref output))
                         Debug.LogError($"Failed to generate the asset from template \"{assetTemplateType.FullName}\"");
 
                     break;
                 }
 
-                // Create the script depending on the generated content
-                if (!string.IsNullOrWhiteSpace(output.Content))
+                // Cancel if the output path is not valid
+                if (triggeredAssetTemplateType != null && string.IsNullOrWhiteSpace(output.Path))
                 {
+                    Debug.LogError($"Failed to generate a file from asset templates: invalid path provided by the asset template of type {triggeredAssetTemplateType.FullName}");
+                    return;
+                }
+
+                // If the generated content is supposed to be editor-only
+                if (output.IsEditorContent)
+                {
+                    bool isInEditorFolder = false;
+                    string tmpPath = output.Path;
+                    // Try to find an "Editor" folder the asset is placed in
+                    while (!string.IsNullOrWhiteSpace(tmpPath))
+                    {
+                        tmpPath = Path.GetDirectoryName(tmpPath);
+                        if (tmpPath.EndsWith("Editor"))
+                        {
+                            isInEditorFolder = true;
+                            break;
+                        }
+                    }
+
+                    if (!isInEditorFolder)
+                    {
+                        string dir = Path.GetDirectoryName(output.Path);
+                        try
+                        {
+                            Directory.CreateDirectory($"{dir}/{EditorFolder}");
+                            output.Path = $"{dir}/{EditorFolder}/{Path.GetFileName(output.Path)}";
+                            //if (output.Path.IsProjectPath())
+                            //    AssetDatabase.Refresh();
+                        }
+                        catch (Exception)
+                        {
+                            Debug.LogWarning($"Failed to create an Editor/ folder at {dir}. Since the generated asset should be editor-only, you must place it in an Editor/ folder to exclude it from build.");
+                        }
+                    }
+                }
+
+                // Create the asset with the given content
+                // Note that empty scripts are not allowed, and the default script tample will be used instead
+                if (output.Content != null || !output.Path.EndsWith("cs"))
+                {
+                    if (output.Content == null)
+                        output.Content = string.Empty;
+
                     /**
                      * @note
                      * Even if the name doesn't suggest it, this function can be used to create assets that are not scripts but still
