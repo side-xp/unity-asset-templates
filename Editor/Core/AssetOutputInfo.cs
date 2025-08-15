@@ -19,6 +19,11 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// </summary>
         private string _content;
 
+        /// <summary>
+        /// If enabled, the asset template processor will make sure that the created asset is placed in an Editor/ folder.
+        /// </summary>
+        private bool _isEditorContent;
+
         /// <inheritdoc cref="_path"/>
         public string Path
         {
@@ -31,6 +36,13 @@ namespace SideXP.AssetTemplates.EditorOnly
         {
             get => _content;
             set => _content = value;
+        }
+
+        /// <inheritdoc cref="_isEditorContent"/>
+        public bool IsEditorContent
+        {
+            get => _isEditorContent;
+            set => _isEditorContent = value;
         }
 
         /// <summary>

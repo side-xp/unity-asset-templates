@@ -54,6 +54,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         private const string CreateScriptFromTemplateMethodName = "CreateScriptAssetFromTemplate";
 
         // Paths
+        private const string EditorFolder = "Editor";
         private const string TargetScriptTemplatesDirectory = "Data/Resources/ScriptTemplates";
         private static readonly string ScriptTemplatesDirectory = null;
 
@@ -122,6 +123,39 @@ namespace SideXP.AssetTemplates.EditorOnly
                 {
                     Debug.LogError($"Failed to generate a file from asset templates: invalid path provided by the asset template of type {triggeredAssetTemplateType.FullName}");
                     return;
+                }
+
+                // If the generated content is supposed to be editor-only
+                if (output.IsEditorContent)
+                {
+                    bool isInEditorFolder = false;
+                    string tmpPath = output.Path;
+                    // Try to find an "Editor" folder the asset is placed in
+                    while (!string.IsNullOrWhiteSpace(tmpPath))
+                    {
+                        tmpPath = Path.GetDirectoryName(tmpPath);
+                        if (tmpPath.EndsWith("Editor"))
+                        {
+                            isInEditorFolder = true;
+                            break;
+                        }
+                    }
+
+                    if (!isInEditorFolder)
+                    {
+                        string dir = Path.GetDirectoryName(output.Path);
+                        try
+                        {
+                            Directory.CreateDirectory($"{dir}/{EditorFolder}");
+                            output.Path = $"{dir}/{EditorFolder}/{Path.GetFileName(output.Path)}";
+                            //if (output.Path.IsProjectPath())
+                            //    AssetDatabase.Refresh();
+                        }
+                        catch (Exception)
+                        {
+                            Debug.LogWarning($"Failed to create an Editor/ folder at {dir}. Since the generated asset should be editor-only, you must place it in an Editor/ folder to exclude it from build.");
+                        }
+                    }
                 }
 
                 // Create the asset with the given content
