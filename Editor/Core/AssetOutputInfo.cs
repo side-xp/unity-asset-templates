@@ -33,6 +33,22 @@ namespace SideXP.AssetTemplates.EditorOnly
             set => _content = value;
         }
 
+        /// <summary>
+        /// Sets the extension of the output file.
+        /// </summary>
+        /// <remarks>This function will update the <see cref="Path"/> value accordingly.</remarks>
+        /// <param name="extension">The extension to set (without the "." char).</param>
+        /// <returns>Returns the new path, with the extension changed.</returns>
+        public string SetExtension(string extension)
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+                return Path;
+
+            _path = Path.Substring(0, Path.Length - (System.IO.Path.GetExtension(Path).Length - 1));
+            _path += extension;
+            return _path;
+        }
+
     }
 
 }
