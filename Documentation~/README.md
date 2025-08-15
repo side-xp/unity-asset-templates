@@ -2,7 +2,7 @@
 
 Utility for creating text assets from user-defined templates, whether they are scripts, data or any kind of serialized object.
 
-You can create those assets based on templates from a menu, or automate their use by name pattern or target folder.
+All from a single menu: `Assets (or right-click in Project view) > Create > Create Asset From Template`
 
 ## Features
 
@@ -11,6 +11,22 @@ You can create those assets based on templates from a menu, or automate their us
 - Use template by name pattern (eg. add a suffix `-Component` to generate a component script)
 - Use template by folder location
 - Declare and set options for all the templates in your project
+
+[=> See the built-in templates](./built-in-templates.md)
+
+## Examples
+
+Create components with utility attributes, and handle inheritance if applicable:
+
+![Component template usage](./img/template-component.gif)
+
+Create scriptable objects with utility attributes:
+
+![Scriptable Object template usage](./img/template-scriptable-object.gif)
+
+Create custom editors easily by just selecting the asset for which to create that editor:
+
+![Editor template usage](./img/template-editor.gif)
 
 ## Documentation & Help
 
