@@ -257,3 +257,12 @@ Generates a script that declares a `static` class, meant to define helper functi
 - `-Helpers` suffix
 - `-Extension` suffix
 - `-Extensions` suffix
+
+## Bonus: the "asset template" template
+
+Generates a script that implements `IAssetTemplate`, so you can create your own.
+
+### Triggers
+
+- `template-` prefix (followed by space or uppercase letter)
+- `-AssetTemplate` suffix
