@@ -94,6 +94,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                 AssetOutputInfo output = new AssetOutputInfo { Path = info.Path };
 
                 // Try to generate the content from the appropriate asset template
+                Type triggeredAssetTemplateType = null;
                 foreach (Type assetTemplateType in AssetTemplatesUtility.GetAvailableAssetTemplateTypes())
                 {
                     IAssetTemplate assetTemplate = AssetTemplatesUtility.GetAssetTemplateInstance(assetTemplateType);
@@ -105,14 +106,22 @@ namespace SideXP.AssetTemplates.EditorOnly
                     if (!assetTemplate.CanGenerateAsset(info))
                         continue;
 
+                    triggeredAssetTemplateType = assetTemplateType;
                     if (!assetTemplate.GenerateAsset(info, ref output))
                         Debug.LogError($"Failed to generate the asset from template \"{assetTemplateType.FullName}\"");
 
                     break;
                 }
 
+                // Cancel if the output path is not valid
+                if (triggeredAssetTemplateType != null && string.IsNullOrWhiteSpace(output.Path))
+                {
+                    Debug.LogError($"Failed to generate a file from asset templates: invalid path provided by the asset template of type {triggeredAssetTemplateType.FullName}");
+                    return;
+                }
+
                 // Create the script depending on the generated content
-                if (!string.IsNullOrWhiteSpace(output.Content))
+                if (output.Content != null || !output.Path.EndsWith("cs"))
                 {
                     /**
                      * @note
