@@ -87,8 +87,12 @@ namespace SideXP.AssetTemplates.EditorOnly
 
                 // Process inheritance
                 string inheritFromPath = null;
-                if (ScriptUtility.TryGetDeclaredType(s_selectedObjectBeforeAction as TextAsset, out Type baseType))
+                Type baseType = null;
+                if (s_selectedObjectBeforeAction != null)
+                {
                     inheritFromPath = AssetDatabase.GetAssetPath(s_selectedObjectBeforeAction);
+                    ScriptUtility.TryGetDeclaredType(s_selectedObjectBeforeAction as TextAsset, out baseType);
+                }
 
                 AssetInfo info = new AssetInfo(pathName, namespaceStr, inheritFromPath, baseType);
                 AssetOutputInfo output = new AssetOutputInfo { Path = info.Path };
