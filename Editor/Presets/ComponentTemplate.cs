@@ -57,7 +57,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
             ScriptGenerator scriptGenerator = new ScriptGenerator(info);
             // Inherit from the parent type if applicable and if it derives from MonoBegaviour
-            if (scriptGenerator.Info.ParentType != null && scriptGenerator.Info.ParentType.Is(typeof(MonoBehaviour)))
+            if (scriptGenerator.Info.ParentType != null && scriptGenerator.Info.ParentType.Inherits(typeof(MonoBehaviour)))
                 scriptGenerator.InheritFromContext();
             // Otherwuse just inherit from MonoBehaviour
             else
@@ -77,7 +77,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
             // [AddComponentMenu] attribute
             {
-                string componentMenu = ObjectNames.NicifyVariableName(info.Name);
+                string componentMenu = ObjectNames.NicifyVariableName(className);
                 if (!string.IsNullOrWhiteSpace(BaseAddComponentMenu))
                     componentMenu = $"{BaseAddComponentMenu}/{componentMenu}";
 
