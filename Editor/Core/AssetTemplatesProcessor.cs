@@ -95,7 +95,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
                 // Try to generate the content from the appropriate asset template
                 Type triggeredAssetTemplateType = null;
-                foreach (Type assetTemplateType in AssetTemplatesUtility.GetAvailableAssetTemplateTypes())
+                foreach (Type assetTemplateType in AssetTemplatesUtility.GetAvailableAssetTemplateTypes(true))
                 {
                     IAssetTemplate assetTemplate = AssetTemplatesUtility.GetAssetTemplateInstance(assetTemplateType);
                     // Skip if the asset template is not valid or disabled
@@ -120,7 +120,8 @@ namespace SideXP.AssetTemplates.EditorOnly
                     return;
                 }
 
-                // Create the script depending on the generated content
+                // Create the asset with the given content
+                // Note that empty scripts are not allowed, and the default script tample will be used instead
                 if (output.Content != null || !output.Path.EndsWith("cs"))
                 {
                     /**
