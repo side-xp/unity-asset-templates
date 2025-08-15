@@ -13,7 +13,7 @@ namespace SideXP.AssetTemplates.EditorOnly
     [System.Serializable]
     [AssetTemplate(
         "Editor",
-        "Generates a script for a custom Editor.",
+        "Generates a script for a custom Editor. The script will be created in an Editor/ folder if not initially placed inside.",
         "\"editor-\" prefix (followed by space or uppercase letter)",
         "\"-Editor\" suffix" +
         "If another Object script is currently selected, it's used as value for the [CustomEditor] attribute",
@@ -23,7 +23,7 @@ namespace SideXP.AssetTemplates.EditorOnly
     {
 
         /// <summary>
-        /// The pattern for matching prefix or suffix.
+        /// The pattern for matching prefixes or suffixes.
         /// </summary>
         private static PrefixSuffixPattern s_pattern = new PrefixSuffixPattern("editor");
 
@@ -85,6 +85,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
             output.Path = info.Path;
             output.Content = scriptGenerator.Generate();
+            output.IsEditorContent = true;
 
             return true;
         }

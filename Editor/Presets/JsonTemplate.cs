@@ -24,6 +24,9 @@ namespace SideXP.AssetTemplates.EditorOnly
 
         private const string JsonExtension = "json";
 
+        [Tooltip("By default, the generated JSON is a long string on a single line. If enabled, the serialized data will be \"pretty printed\", making it easy to read.")]
+        public bool PrettyPrint = true;
+
         /// <inheritdoc cref="IAssetTemplate.CanGenerateAsset(AssetInfo)"/>
         public bool CanGenerateAsset(AssetInfo info)
         {
@@ -48,7 +51,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                             try
                             {
                                 ScriptableObject inst = ScriptableObject.CreateInstance(info.ParentType);
-                                output.Content = JsonUtility.ToJson(inst);
+                                output.Content = JsonUtility.ToJson(inst, PrettyPrint);
                             }
                             catch (Exception) { }
                         }
@@ -58,7 +61,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                             try
                             {
                                 object inst = Activator.CreateInstance(info.ParentType);
-                                output.Content = EditorJsonUtility.ToJson(inst);
+                                output.Content = EditorJsonUtility.ToJson(inst, PrettyPrint);
                             }
                             catch (Exception) { }
                         }
@@ -71,9 +74,9 @@ namespace SideXP.AssetTemplates.EditorOnly
                     {
                         Object obj = AssetDatabase.LoadAssetAtPath<Object>(info.ParentPath);
                         if (obj is ScriptableObject)
-                            output.Content = JsonUtility.ToJson(obj);
+                            output.Content = JsonUtility.ToJson(obj, PrettyPrint);
                         else
-                            output.Content = EditorJsonUtility.ToJson(obj);
+                            output.Content = EditorJsonUtility.ToJson(obj, PrettyPrint);
                     }
                     catch (Exception) { }
                 }

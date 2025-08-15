@@ -11,11 +11,15 @@ namespace SideXP.AssetTemplates.EditorOnly
         "Utility",
         "Generates a script with a static class to create a utility with helper functions.",
         "\"utility-\" prefix (followed by space or uppercase letter)",
+        "\"utilities-\" prefix (followed by space or uppercase letter)",
         "\"helper-\" prefix (followed by space or uppercase letter)",
+        "\"helpers-\" prefix (followed by space or uppercase letter)",
         "\"extension-\" prefix (followed by space or uppercase letter)",
         "\"extensions-\" prefix (followed by space or uppercase letter)",
         "\"-Utility\" suffix",
+        "\"-Utilities\" suffix",
         "\"-Helper\" suffix",
+        "\"-Helpers\" suffix",
         "\"-Extension\" suffix",
         "\"-Extensions\" suffix"
     )]
@@ -26,9 +30,9 @@ namespace SideXP.AssetTemplates.EditorOnly
         private const string StaticClassDeclarationStr = "public static class";
 
         /// <summary>
-        /// The pattern for matching prefix or suffix.
+        /// The pattern for matching prefixes or suffixes.
         /// </summary>
-        private static PrefixSuffixPattern s_pattern = new PrefixSuffixPattern("utility", "helper", "extension", "extensions");
+        private static PrefixSuffixPattern s_pattern = new PrefixSuffixPattern("utility", "utilities", "helper", "helpers", "extension", "extensions");
 
         [Tooltip("By default, the suffix used to trigger this asset template is left as is." +
             "\nIf checked, the suffix will be removed from the name of both the file and the class itself.")]

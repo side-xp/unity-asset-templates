@@ -13,15 +13,17 @@ namespace SideXP.AssetTemplates.EditorOnly
         "Scriptable Object",
         "Generates a script for a ScriptableObject class.",
         "\"scriptable-\" prefix (followed by space or uppercase letter)",
+        "\"asset-\" prefix (followed by space or uppercase letter)",
         "\"-ScriptableObject\" suffix",
         "\"-Scriptable\" suffix",
-        "\"-SO\" suffix"
+        "\"-SO\" suffix",
+        "\"-Asset\" suffix"
     )]
     public class ScriptableObjectTemplate : IAssetTemplate
     {
 
         /// <summary>
-        /// The pattern for matching prefix or suffix.
+        /// The pattern for matching prefixes or suffixes.
         /// </summary>
         private static PrefixSuffixPattern s_pattern = null;
 
@@ -42,9 +44,11 @@ namespace SideXP.AssetTemplates.EditorOnly
         {
             s_pattern = new PrefixSuffixPattern();
             s_pattern.AddPrefix("scriptable");
+            s_pattern.AddPrefix("asset");
             s_pattern.AddSuffix("Scriptable");
             s_pattern.AddSuffix("ScriptableObject");
             s_pattern.AddSuffix("SO");
+            s_pattern.AddSuffix("Asset");
         }
 
         /// <inheritdoc cref="IAssetTemplate.CanGenerateAsset(AssetInfo)"/>

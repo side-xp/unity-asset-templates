@@ -16,13 +16,13 @@ namespace SideXP.AssetTemplates.EditorOnly
         "\"-Comp\" suffix",
         "\"component-\" prefix (followed by space or uppercase letter)",
         "\"-Component\" suffix",
-        "If another Component script is currently selected, try to inherit from it"
+        "If another Component or Interface script is currently selected, try to inherit from it"
     )]
     public class ComponentTemplate : IAssetTemplate
     {
 
         /// <summary>
-        /// The pattern for matching prefix or suffix.
+        /// The pattern for matching prefixes or suffixes.
         /// </summary>
         private static PrefixSuffixPattern s_pattern = new PrefixSuffixPattern("comp", "component");
 

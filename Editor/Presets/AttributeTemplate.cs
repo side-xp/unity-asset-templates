@@ -17,7 +17,7 @@ namespace SideXP.AssetTemplates.EditorOnly
     {
 
         /// <summary>
-        /// The pattern for matching prefix or suffix.
+        /// The pattern for matching prefixes or suffixes.
         /// </summary>
         private static PrefixSuffixPattern s_pattern = null;
 
