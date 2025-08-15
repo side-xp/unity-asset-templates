@@ -45,7 +45,7 @@ jobs:
         run: |
           mkdir -p docs
           cp -a "Documentation~" "docs"
-          find docs -type f -name "*.md" -exec sed -i 's|Documentation~/||g' {} +
+          find docs -type f -name "*.md" -exec sed -i 's|Documentation~/|docs/|g' {} +
           mv "docs/Documentation~/mkdocs.yml" "docs"
           cd docs
           mkdocs build --strict
