@@ -1,4 +1,5 @@
 using System.CodeDom;
+using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEditor;
@@ -32,9 +33,12 @@ namespace SideXP.AssetTemplates.EditorOnly
         public string BaseHelpURL = string.Empty;
 
         [Tooltip("The base string to use for the [CreateAssetMenu] attribute of the generated scripts." +
-            "\nIt must not end with a slash character." +
-            "\nIf empty, the [CreateAssetMenu] attribute won't be added in the generated script.")]
+            "\nIt must not end with a slash character.")]
         public string BaseCreateAssetMenu = string.Empty;
+
+        [Tooltip("The default order to use for the [CreateAssetMenu] attribute of the generated scripts." +
+            "\nIf 0, that value won't be specified.")]
+        public int DefaultOrder = 0;
 
         [Tooltip("By default, the suffix used to trigger this asset template is left as is." +
             "\nIf checked, the suffix will be removed from the name of both the file and the class itself.")]
@@ -91,11 +95,15 @@ namespace SideXP.AssetTemplates.EditorOnly
                 if (!string.IsNullOrWhiteSpace(BaseCreateAssetMenu))
                     menuName = $"{BaseCreateAssetMenu}/{menuName}";
 
-                scriptGenerator.MainClass.CustomAttributes.Add(new CodeAttributeDeclaration(scriptGenerator.GetTypeReference<CreateAssetMenuAttribute>(), new CodeAttributeArgument[]
+                List<CodeAttributeArgument> attributeArgs = new List<CodeAttributeArgument>
                 {
                     new CodeAttributeArgument(nameof(CreateAssetMenuAttribute.fileName), new CodePrimitiveExpression("New" + className)),
-                    new CodeAttributeArgument(nameof(CreateAssetMenuAttribute.menuName), new CodePrimitiveExpression(menuName)),
-                }));
+                    new CodeAttributeArgument(nameof(CreateAssetMenuAttribute.menuName), new CodePrimitiveExpression(menuName))
+                };
+                if (DefaultOrder != 0)
+                    attributeArgs.Add(new CodeAttributeArgument(nameof(CreateAssetMenuAttribute.order), new CodePrimitiveExpression(DefaultOrder)));
+
+                scriptGenerator.MainClass.CustomAttributes.Add(new CodeAttributeDeclaration(scriptGenerator.GetTypeReference<CreateAssetMenuAttribute>(), attributeArgs.ToArray()));
             }
 
             // If the matching part is a suffix, and it shouldn't be removed, add the suffix
