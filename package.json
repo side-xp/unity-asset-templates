@@ -1,6 +1,6 @@
 {
   "name": "com.side-xp.asset-templates",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Utility for creating text assets from user-defined templates, whether they are scripts, data or any kind of serialized object.",
   "displayName": "SideXP - Asset Templates",
   "unity": "2021.3",
