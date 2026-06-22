@@ -108,7 +108,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
             // If the matching part is a suffix, and it shouldn't be removed, add the suffix
             if (!isPrefix && !RemoveSuffix)
-                 className += matchingPart.Trim();
+                className += matchingPart.Trim();
 
             info.Rename(className);
             scriptGenerator.MainClass.Name = info.Name;
