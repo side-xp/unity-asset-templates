@@ -16,6 +16,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         "\"helpers-\" prefix (followed by space or uppercase letter)",
         "\"extension-\" prefix (followed by space or uppercase letter)",
         "\"extensions-\" prefix (followed by space or uppercase letter)",
+        "\"static-\" prefix (followed by space or uppercase letter)",
         "\"-Utility\" suffix",
         "\"-Utilities\" suffix",
         "\"-Helper\" suffix",
@@ -32,7 +33,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <summary>
         /// The pattern for matching prefixes or suffixes.
         /// </summary>
-        private static PrefixSuffixPattern s_pattern = new PrefixSuffixPattern("utility", "utilities", "helper", "helpers", "extension", "extensions");
+        private static PrefixSuffixPattern s_pattern = new PrefixSuffixPattern("utility", "utilities", "helper", "helpers", "extension", "extensions", "static");
 
         [Tooltip("By default, the suffix used to trigger this asset template is left as is." +
             "\nIf checked, the suffix will be removed from the name of both the file and the class itself.")]
