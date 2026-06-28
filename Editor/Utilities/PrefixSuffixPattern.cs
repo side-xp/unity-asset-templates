@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using UnityEngine;
-
 namespace SideXP.AssetTemplates.EditorOnly
 {
 
@@ -59,7 +57,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         {
             foreach (string prefix in prefixes)
                 AddPrefix(prefix);
-            
+
             foreach (string suffix in suffixes)
                 AddSuffix(suffix);
         }
@@ -67,7 +65,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <inheritdoc cref="PrefixSuffixPattern"/>
         /// <param name="parts">The name parts to match as both prefixes and suffixes.</param>
         public PrefixSuffixPattern(params string[] parts)
-            : this (parts, parts) { }
+            : this(parts, parts) { }
 
         /// <inheritdoc cref="AddPrefix(string, PartOptions)"/>
         public void AddPrefix(string prefix)

@@ -73,7 +73,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             private IAssetTemplate _instance = null;
 
             public AssetTemplateInfo(Type assetTemplateType)
-                : this (assetTemplateType, new SerializedAssetTemplateSettings(assetTemplateType)) { }
+                : this(assetTemplateType, new SerializedAssetTemplateSettings(assetTemplateType)) { }
 
             public AssetTemplateInfo(Type assetTemplateType, SerializedAssetTemplateSettings settings)
             {

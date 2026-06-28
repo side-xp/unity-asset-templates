@@ -1,5 +1,0 @@
-site_name: SideXP - Asset Templates
-docs_dir: Documentation~
-theme:
-  name: readthedocs
-  logo: ./img/logo.png

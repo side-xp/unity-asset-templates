@@ -64,11 +64,20 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <summary>
         /// Represents the action to perform after naming a file to create using the template creation menu.
         /// </summary>
+#if UNITY_6000_5_OR_NEWER
+        private class EndNameAssetTemplate : AssetCreationEndAction
+#else
         private class EndNameAssetTemplate : EndNameEditAction
+#endif
         {
 
+#if UNITY_6000_5_OR_NEWER
+            /// <inheritdoc cref="AssetCreationEndAction.Action(EntityId, string, string)"/>
+            public override void Action(EntityId entityId, string pathName, string resourceFile)
+#else
             /// <inheritdoc cref="EndNameEditAction.Action(int, string, string)"/>
             public override void Action(int instanceId, string pathName, string resourceFile)
+#endif
             {
                 string name = Path.GetFileNameWithoutExtension(pathName);
                 string extension = Path.GetExtension(pathName);
@@ -210,7 +219,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         {
             s_selectedObjectBeforeAction = Selection.activeObject;
             var action = ScriptableObject.CreateInstance<EndNameAssetTemplate>();
-            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, action, DefaultFileName, null, null, true);
+            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(EntityId.None, action, DefaultFileName, null, null, true);
         }
 
     }

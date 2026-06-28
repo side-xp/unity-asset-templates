@@ -1,9 +1,3 @@
-using SideXP.Core;
-
-using System;
-using System.CodeDom;
-using System.Runtime.Remoting.Contexts;
-
 using UnityEngine;
 
 namespace SideXP.AssetTemplates.EditorOnly

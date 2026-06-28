@@ -2,7 +2,6 @@ using System;
 using System.CodeDom;
 
 using UnityEngine;
-using UnityEngine.Device;
 
 namespace SideXP.AssetTemplates.EditorOnly
 {
@@ -78,11 +77,11 @@ namespace SideXP.AssetTemplates.EditorOnly
                 scriptGenerator.MainClass.CustomAttributes.Add(new CodeAttributeDeclaration(scriptGenerator.GetTypeReference<FlagsAttribute>(true, true)));
 
                 // Add "Black = 0" field
-                scriptGenerator.MainClass.Members.Add(new CodeMemberField{ Name = "Black", InitExpression = new CodePrimitiveExpression(0) });
+                scriptGenerator.MainClass.Members.Add(new CodeMemberField { Name = "Black", InitExpression = new CodePrimitiveExpression(0) });
                 // Add bitshift fields
-                scriptGenerator.MainClass.Members.Add(new CodeMemberField{ Name = "Red", InitExpression = new CodeSnippetExpression("1 << 0") });
-                scriptGenerator.MainClass.Members.Add(new CodeMemberField{ Name = "Green", InitExpression = new CodeSnippetExpression("1 << 1") });
-                scriptGenerator.MainClass.Members.Add(new CodeMemberField{ Name = "Blue", InitExpression = new CodeSnippetExpression("1 << 2") });
+                scriptGenerator.MainClass.Members.Add(new CodeMemberField { Name = "Red", InitExpression = new CodeSnippetExpression("1 << 0") });
+                scriptGenerator.MainClass.Members.Add(new CodeMemberField { Name = "Green", InitExpression = new CodeSnippetExpression("1 << 1") });
+                scriptGenerator.MainClass.Members.Add(new CodeMemberField { Name = "Blue", InitExpression = new CodeSnippetExpression("1 << 2") });
                 // Add combination fields
                 scriptGenerator.MainClass.Members.Add(new CodeMemberField { Name = "Yellow", InitExpression = new CodeSnippetExpression("Red | Green") });
                 scriptGenerator.MainClass.Members.Add(new CodeMemberField { Name = "Magenta", InitExpression = new CodeSnippetExpression("Red | Blue") });
