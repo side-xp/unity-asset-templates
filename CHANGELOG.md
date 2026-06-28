@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/side-xp/unity-asset-templates/compare/v1.3.0...v1.4.0) (2026-06-28)
+
+
+### Features
+
+* use new workflow & tooling ([00f6d65](https://github.com/side-xp/unity-asset-templates/commit/00f6d654d7c46cb10ffbd5cea2b779f97e6c886a))
+
+
+### Bug Fixes
+
+* add "static" pattern ([ae61572](https://github.com/side-xp/unity-asset-templates/commit/ae6157263d63d46256371e8adb975c1ad9b464b2))
+
 ## [1.3.0](///compare/v1.2.2...v1.3.0) (2025-08-22)
 
 
