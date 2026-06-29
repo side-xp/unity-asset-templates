@@ -1,4 +1,4 @@
-# Asset Templates
+# SideXP - Asset Templates (Unity)
 
 Utility for creating text assets from user-defined templates, whether they are scripts, data or any kind of serialized object.
 

@@ -2,7 +2,7 @@
 # https://zensical.org/docs/setup/basics/#settings
 
 [project]
-site_name = "SideXP - Unity Asset Templates package"
+site_name = "SideXP - Asset Templates (Unity)"
 site_description = "Utility for creating text assets from user-defined templates, whether they are scripts, data or any kind of serialized object."
 site_author = "Sideways Experiments"
 copyright = """
