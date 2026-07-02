@@ -219,7 +219,11 @@ namespace SideXP.AssetTemplates.EditorOnly
         {
             s_selectedObjectBeforeAction = Selection.activeObject;
             var action = ScriptableObject.CreateInstance<EndNameAssetTemplate>();
+#if UNITY_6000_5_OR_NEWER
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(EntityId.None, action, DefaultFileName, null, null, true);
+#else
+            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, action, DefaultFileName, null, null, true);
+#endif
         }
 
     }

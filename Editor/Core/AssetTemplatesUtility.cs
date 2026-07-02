@@ -11,7 +11,7 @@ using UnityEditor;
 namespace SideXP.AssetTemplates.EditorOnly
 {
 
-    public class AssetTemplatesUtility : MonoBehaviour
+    public class AssetTemplatesUtility
     {
 
         /// <summary>
