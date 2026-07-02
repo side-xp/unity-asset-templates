@@ -36,7 +36,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         public string BaseAddComponentMenu = string.Empty;
 
         [Tooltip("By default, the \"-Comp\" or \"-Component\" suffix is left as part of the name. If enabled, the suffix will be removed." +
-            "\nNote that it doesn't applies to the prefix, which will alsways be removed from the final name.")]
+            "\nNote that it doesn't apply to the prefix, which will always be removed from the final name.")]
         public bool RemoveSuffix = false;
 
         /// <inheritdoc cref="IAssetTemplate.CanGenerateAsset(AssetInfo)"/>
@@ -56,10 +56,10 @@ namespace SideXP.AssetTemplates.EditorOnly
             }
 
             ScriptGenerator scriptGenerator = new ScriptGenerator(info);
-            // Inherit from the parent type if applicable and if it derives from MonoBegaviour
+            // Inherit from the parent type if applicable and if it derives from MonoBehaviour
             if (scriptGenerator.Info.ParentType != null && scriptGenerator.Info.ParentType.Inherits(typeof(MonoBehaviour)))
                 scriptGenerator.InheritFromContext();
-            // Otherwuse just inherit from MonoBehaviour
+            // Otherwise just inherit from MonoBehaviour
             else
                 scriptGenerator.InheritFrom(typeof(MonoBehaviour));
 

@@ -5,7 +5,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 {
 
     /// <summary>
-    /// Utility for creating Regex patterns to detext prefix or suffix in a name.
+    /// Utility for creating Regex patterns to detect prefix or suffix in a name.
     /// </summary>
     public class PrefixSuffixPattern
     {
@@ -33,7 +33,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             public bool FirstLetterCaseInsensitive;
 
             /// <summary>
-            /// For prefixes only. If enabled, this prefix will match event if it's not followed by a space but by an uppercase letter.
+            /// For prefixes only. If enabled, this prefix will match even if it's not followed by a space but by an uppercase letter.
             /// </summary>
             public bool MatchIfNextLetterUppercase;
 
@@ -74,7 +74,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         }
 
         /// <summary>
-        /// Registers a prefix to match;
+        /// Registers a prefix to match.
         /// </summary>
         /// <param name="prefix">The prefix to match.</param>
         /// <param name="options">The options for making the prefix match.</param>
@@ -94,7 +94,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         }
 
         /// <summary>
-        /// Registers a suffix to match;
+        /// Registers a suffix to match.
         /// </summary>
         /// <param name="suffix">The suffix to match.</param>
         /// <param name="options">The options for making the suffix match.</param>
@@ -114,12 +114,12 @@ namespace SideXP.AssetTemplates.EditorOnly
         }
 
         /// <summary>
-        /// Checks if one of the defiend parts match.
+        /// Checks if one of the defined parts match.
         /// </summary>
         /// <param name="name">The name to match.</param>
         /// <param name="outputName">Outputs the "final" name, after removing the matching part if needed.</param>
         /// <param name="matchingPart">Outputs the part that validated the match.</param>
-        /// <param name="isPrefix">Outputs true if the matching part is a prefix, or false if the macthing part is a suffix.</param>
+        /// <param name="isPrefix">Outputs true if the matching part is a prefix, or false if the matching part is a suffix.</param>
         /// <returns>Returns true if one of the defined parts has matched.</returns>
         public bool Match(string name, out string outputName, out string matchingPart, out bool isPrefix)
         {
@@ -169,8 +169,8 @@ namespace SideXP.AssetTemplates.EditorOnly
             {
                 // Open group "suffix", and non-capturing group to assert the whole pattern at the end
                 string pattern = "(?<suffix>(?:";
-                // Add a match for the exact part: if the part starts with a lowercase letter, it MUST be preceeded by a space character.
-                // If the part starts with an uppercase letter, it CAN be preceeded by a space character
+                // Add a match for the exact part: if the part starts with a lowercase letter, it MUST be preceded by a space character.
+                // If the part starts with an uppercase letter, it CAN be preceded by a space character
                 pattern += $@"(?:\s{(char.IsLower(part[0]) ? @"+" : "*")}{part})";
                 // Add a match for the part with first letter case insensitive if applicable
                 if (options.FirstLetterCaseInsensitive)
@@ -179,7 +179,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                     pattern += $@"|(?:\s{(char.IsLower(partWithoutCasing[0]) ? @"+" : "*")}{partWithoutCasing})";
                 }
                 // Close the non-capturing group and group "suffix"
-                // Also asset the pattern at the end position
+                // Also assert the pattern at the end position
                 pattern += "))$";
 
                 // Use the built regex

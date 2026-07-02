@@ -16,7 +16,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         "JSON (*.json)",
         "Generates a JSON file.",
         "File extension is *.json",
-        "\"json\" alone, if another asset is selected, so the generated JSON file will contain its JSON representation if applicable (for scripts, it works with ScriptableObject implementations or serializable classes with a defaut constructor)",
+        "\"json\" alone, if another asset is selected, so the generated JSON file will contain its JSON representation if applicable (for scripts, it works with ScriptableObject implementations or serializable classes with a default constructor)",
         Order = 100
     )]
     public class JsonTemplate : IAssetTemplate

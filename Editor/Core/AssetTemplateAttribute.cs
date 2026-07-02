@@ -4,7 +4,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 {
 
     /// <summary>
-    /// Links additional informations to an <see cref="IAssetTemplate"/> class for users.
+    /// Links additional information to an <see cref="IAssetTemplate"/> class for users.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class AssetTemplateAttribute : Attribute

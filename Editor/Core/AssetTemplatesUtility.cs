@@ -64,7 +64,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         }
 
         /// <summary>
-        /// Informations about a loaded asset template.
+        /// Information about a loaded asset template.
         /// </summary>
         private class AssetTemplateInfo
         {
