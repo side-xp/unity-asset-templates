@@ -178,9 +178,20 @@ namespace SideXP.AssetTemplates.EditorOnly
                     scope.List.Add(t);
                 }
 
-                // Sort by name (using the "display name" from the [AssetTemplate] attribute if applicable)
+                // Sort by order ascending (if requested), then by name (using the "display name" from the [AssetTemplate]
+                // attribute if applicable). Both criteria are compared in a single pass so the name order remains a stable
+                // tie-breaker within a given order value.
                 scope.List.Sort((a, b) =>
                 {
+                    if (sortByOrder)
+                    {
+                        int aOrder = a.TryGetAttribute(out AssetTemplateAttribute orderAttrA) ? orderAttrA.Order : 0;
+                        int bOrder = b.TryGetAttribute(out AssetTemplateAttribute orderAttrB) ? orderAttrB.Order : 0;
+                        int orderComparison = aOrder.CompareTo(bOrder);
+                        if (orderComparison != 0)
+                            return orderComparison;
+                    }
+
                     string aName = a.Name;
                     if (a.TryGetAttribute(out AssetTemplateAttribute templateAttrA) && !string.IsNullOrWhiteSpace(templateAttrA.Name))
                         aName = templateAttrA.Name;
@@ -191,23 +202,6 @@ namespace SideXP.AssetTemplates.EditorOnly
 
                     return aName.CompareTo(bName);
                 });
-
-                // Sort by order ascending if applicable
-                if (sortByOrder)
-                {
-                    scope.List.Sort((a, b) =>
-                    {
-                        int aOrder = 0;
-                        if (a.TryGetAttribute(out AssetTemplateAttribute templateAttrA))
-                            aOrder = templateAttrA.Order;
-
-                        int bOrder = 0;
-                        if (b.TryGetAttribute(out AssetTemplateAttribute templateAttrB))
-                            bOrder = templateAttrB.Order;
-
-                        return aOrder.CompareTo(bOrder);
-                    });
-                }
 
                 return scope.List.ToArray();
             }
