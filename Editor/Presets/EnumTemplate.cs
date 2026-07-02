@@ -30,7 +30,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// </summary>
         public bool AlwaysUseLetterPrefix = true;
 
-        public EnumTemplate()
+        static EnumTemplate()
         {
             s_pattern = new PrefixSuffixPattern();
             s_pattern.AddPrefix("enum", PrefixSuffixPattern.PartOptions.Default);
