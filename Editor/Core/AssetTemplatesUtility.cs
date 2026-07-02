@@ -214,13 +214,8 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <returns>Returns the found asset template instance.</returns>
         public static IAssetTemplate GetAssetTemplateInstance(Type assetTemplateType)
         {
-            foreach ((Type t, AssetTemplateInfo info) in AssetTemplates)
-            {
-                if (t != assetTemplateType)
-                    continue;
-
+            if (AssetTemplates.TryGetValue(assetTemplateType, out AssetTemplateInfo info))
                 return info.Instance;
-            }
 
             Debug.LogError($"Failed to get asset template instance of type {assetTemplateType.FullName}: That type is abstract or doesn't inherit from {nameof(IAssetTemplate)}.");
             return null;
@@ -232,14 +227,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <param name="assetTemplateType">The type of the asset template to check.</param>
         public static bool IsEnabled(Type assetTemplateType)
         {
-            foreach ((Type t, AssetTemplateInfo info) in AssetTemplates)
-            {
-                if (t != assetTemplateType)
-                    continue;
-
-                return info.Settings.Enabled;
-            }
-            return false;
+            return AssetTemplates.TryGetValue(assetTemplateType, out AssetTemplateInfo info) && info.Settings.Enabled;
         }
 
         /// <inheritdoc cref="IsEnabled(Type)"/>
@@ -268,20 +256,13 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <returns>Returns true if the state of an asset template has been changed successfully.</returns>
         public static bool SetEnabled(Type assetTemplateType, bool enabled)
         {
-            foreach ((Type t, AssetTemplateInfo info) in AssetTemplates)
-            {
-                if (t != assetTemplateType)
-                    continue;
+            // Cancel if the type is unknown, or the asset template already has the expected state
+            if (!AssetTemplates.TryGetValue(assetTemplateType, out AssetTemplateInfo info) || info.Settings.Enabled == enabled)
+                return false;
 
-                // Cancel if the asset template already has the expected state
-                if (info.Settings.Enabled == enabled)
-                    return false;
-
-                info.Settings.Enabled = enabled;
-                SaveSettings();
-                return true;
-            }
-            return false;
+            info.Settings.Enabled = enabled;
+            SaveSettings();
+            return true;
         }
 
         /// <inheritdoc cref="SetEnabled(Type, bool)"/>
