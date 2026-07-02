@@ -58,10 +58,16 @@ namespace SideXP.AssetTemplates.EditorOnly
             ScriptGenerator scriptGenerator = new ScriptGenerator(info);
             // Inherit from the parent type if applicable and if it derives from MonoBehaviour
             if (scriptGenerator.Info.ParentType != null && scriptGenerator.Info.ParentType.Inherits(typeof(MonoBehaviour)))
+            {
                 scriptGenerator.InheritFromContext();
-            // Otherwise just inherit from MonoBehaviour
+            }
+            // Otherwise just inherit from MonoBehaviour, and also implement the selected type if it's an interface
             else
+            {
                 scriptGenerator.InheritFrom(typeof(MonoBehaviour));
+                if (scriptGenerator.Info.ParentType != null && scriptGenerator.Info.ParentType.IsInterface)
+                    scriptGenerator.InheritFromContext();
+            }
 
             // Add "using UnityEngine"
             scriptGenerator.ImportsNamespace.Imports.Add(new CodeNamespaceImport(nameof(UnityEngine)));
