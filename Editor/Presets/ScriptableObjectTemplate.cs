@@ -44,7 +44,7 @@ namespace SideXP.AssetTemplates.EditorOnly
             "\nIf checked, the suffix will be removed from the name of both the file and the class itself.")]
         public bool RemoveSuffix = false;
 
-        public ScriptableObjectTemplate()
+        static ScriptableObjectTemplate()
         {
             s_pattern = new PrefixSuffixPattern();
             s_pattern.AddPrefix("scriptable");
