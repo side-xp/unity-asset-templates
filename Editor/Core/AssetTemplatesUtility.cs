@@ -122,6 +122,16 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// </summary>
         private static Dictionary<Type, AssetTemplateInfo> s_assetTemplates = null;
 
+        /// <summary>
+        /// Cached result of <see cref="GetAvailableAssetTemplateTypes(bool)"/> sorted by name only.
+        /// </summary>
+        private static Type[] s_typesSortedByName = null;
+
+        /// <summary>
+        /// Cached result of <see cref="GetAvailableAssetTemplateTypes(bool)"/> sorted by order, then by name.
+        /// </summary>
+        private static Type[] s_typesSortedByOrder = null;
+
         /// <inheritdoc cref="s_assetTemplates"/>
         private static Dictionary<Type, AssetTemplateInfo> AssetTemplates
         {
@@ -166,45 +176,21 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <param name="sortByOrder">By default, asset templates are sorted by name (for display purposes). If enabled, the asset
         /// templates will also be sorted by their <see cref="AssetTemplateAttribute.Order"/> value if defined.</param>
         /// <returns>Returns the type of all the available asset template in the project.</returns>
+        /// <remarks>The result is cached per sort mode. Like <see cref="AssetTemplates"/>, the cache lives for the duration of the
+        /// editor session and is reset on domain reload (the set of asset template types can only change through a recompile). The
+        /// returned array is shared, so callers must not mutate it.</remarks>
         public static Type[] GetAvailableAssetTemplateTypes(bool sortByOrder = false)
         {
-            using (var scope = new ListPoolScope<Type>())
+            if (sortByOrder)
             {
-                foreach (Type t in AssetTemplates.Keys)
-                {
-                    if (t.IsAbstract)
-                        continue;
-
-                    scope.List.Add(t);
-                }
-
-                // Sort by order ascending (if requested), then by name (using the "display name" from the [AssetTemplate]
-                // attribute if applicable). Both criteria are compared in a single pass so the name order remains a stable
-                // tie-breaker within a given order value.
-                scope.List.Sort((a, b) =>
-                {
-                    if (sortByOrder)
-                    {
-                        int aOrder = a.TryGetAttribute(out AssetTemplateAttribute orderAttrA) ? orderAttrA.Order : 0;
-                        int bOrder = b.TryGetAttribute(out AssetTemplateAttribute orderAttrB) ? orderAttrB.Order : 0;
-                        int orderComparison = aOrder.CompareTo(bOrder);
-                        if (orderComparison != 0)
-                            return orderComparison;
-                    }
-
-                    string aName = a.Name;
-                    if (a.TryGetAttribute(out AssetTemplateAttribute templateAttrA) && !string.IsNullOrWhiteSpace(templateAttrA.Name))
-                        aName = templateAttrA.Name;
-
-                    string bName = b.Name;
-                    if (b.TryGetAttribute(out AssetTemplateAttribute templateAttrB) && !string.IsNullOrWhiteSpace(templateAttrB.Name))
-                        bName = templateAttrB.Name;
-
-                    return aName.CompareTo(bName);
-                });
-
-                return scope.List.ToArray();
+                if (s_typesSortedByOrder == null)
+                    s_typesSortedByOrder = BuildSortedAssetTemplateTypes(true);
+                return s_typesSortedByOrder;
             }
+
+            if (s_typesSortedByName == null)
+                s_typesSortedByName = BuildSortedAssetTemplateTypes(false);
+            return s_typesSortedByName;
         }
 
         /// <summary>
@@ -300,6 +286,51 @@ namespace SideXP.AssetTemplates.EditorOnly
             }
 
             AssetTemplatesConfig.AssetTemplatesSettings = EditorJsonUtility.ToJson(group);
+        }
+
+        /// <summary>
+        /// Collects and sorts the available asset template types.
+        /// </summary>
+        /// <inheritdoc cref="GetAvailableAssetTemplateTypes(bool)"/>
+        private static Type[] BuildSortedAssetTemplateTypes(bool sortByOrder)
+        {
+            using (var scope = new ListPoolScope<Type>())
+            {
+                foreach (Type t in AssetTemplates.Keys)
+                {
+                    if (t.IsAbstract)
+                        continue;
+
+                    scope.List.Add(t);
+                }
+
+                // Sort by order ascending (if requested), then by name (using the "display name" from the [AssetTemplate]
+                // attribute if applicable). Both criteria are compared in a single pass so the name order remains a stable
+                // tie-breaker within a given order value.
+                scope.List.Sort((a, b) =>
+                {
+                    if (sortByOrder)
+                    {
+                        int aOrder = a.TryGetAttribute(out AssetTemplateAttribute orderAttrA) ? orderAttrA.Order : 0;
+                        int bOrder = b.TryGetAttribute(out AssetTemplateAttribute orderAttrB) ? orderAttrB.Order : 0;
+                        int orderComparison = aOrder.CompareTo(bOrder);
+                        if (orderComparison != 0)
+                            return orderComparison;
+                    }
+
+                    string aName = a.Name;
+                    if (a.TryGetAttribute(out AssetTemplateAttribute templateAttrA) && !string.IsNullOrWhiteSpace(templateAttrA.Name))
+                        aName = templateAttrA.Name;
+
+                    string bName = b.Name;
+                    if (b.TryGetAttribute(out AssetTemplateAttribute templateAttrB) && !string.IsNullOrWhiteSpace(templateAttrB.Name))
+                        bName = templateAttrB.Name;
+
+                    return aName.CompareTo(bName);
+                });
+
+                return scope.List.ToArray();
+            }
         }
 
         /// <summary>
