@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.0](https://github.com/side-xp/unity-asset-templates/compare/v1.4.0...v1.5.0) (2026-07-02)
+
+
+### Features
+
+* update core dependency ([6fdfc16](https://github.com/side-xp/unity-asset-templates/commit/6fdfc1620477790bfa3db179f5b64eccaf6e42fd))
+
+
+### Bug Fixes
+
+* fixed Component template behavior ([07dc0ee](https://github.com/side-xp/unity-asset-templates/commit/07dc0eece3f7fa10dcac3476d1ffdd256a50e3d6))
+* fixed config scope mismatch ([6cbf47f](https://github.com/side-xp/unity-asset-templates/commit/6cbf47f2039c460c94d46f09deb0e3e8cea5dbec))
+* fixed custom order sorting ([eb53e1f](https://github.com/side-xp/unity-asset-templates/commit/eb53e1f5987242133ce8e60eca690c636c0b798f))
+* fixed package preset ([685672e](https://github.com/side-xp/unity-asset-templates/commit/685672e1854c55434321aa666ae28a44525353a7))
+* fixed typos ([16b6ed8](https://github.com/side-xp/unity-asset-templates/commit/16b6ed8e587245de4dae9987c56a72d825b68025))
+* fixed Unity version guard ([a41520d](https://github.com/side-xp/unity-asset-templates/commit/a41520df92d6808e364fadb1f9db8f2474a89a40))
+* improved caching ([4f35820](https://github.com/side-xp/unity-asset-templates/commit/4f358200a46c2fd01254c6f4839a54ca5e1fc929))
+* improved path processing ([784833e](https://github.com/side-xp/unity-asset-templates/commit/784833e76f2c540828f906cf1cde33baeecb4e36))
+* improved template search ([27ac97e](https://github.com/side-xp/unity-asset-templates/commit/27ac97e6692c22fbbe7f13f4e8f0573eacf5a15a))
+
 ## [1.4.0](https://github.com/side-xp/unity-asset-templates/compare/v1.3.0...v1.4.0) (2026-06-28)
 
 
