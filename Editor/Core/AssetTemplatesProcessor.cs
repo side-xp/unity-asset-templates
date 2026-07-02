@@ -143,7 +143,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                     while (!string.IsNullOrWhiteSpace(tmpPath))
                     {
                         tmpPath = Path.GetDirectoryName(tmpPath);
-                        if (tmpPath.EndsWith("Editor"))
+                        if (Path.GetFileName(tmpPath) == EditorFolder)
                         {
                             isInEditorFolder = true;
                             break;
@@ -169,7 +169,7 @@ namespace SideXP.AssetTemplates.EditorOnly
 
                 // Create the asset with the given content
                 // Note that empty scripts are not allowed, and the default script tample will be used instead
-                if (output.Content != null || !output.Path.EndsWith("cs"))
+                if (output.Content != null || !output.Path.EndsWith(".cs"))
                 {
                     if (output.Content == null)
                         output.Content = string.Empty;
