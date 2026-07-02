@@ -34,7 +34,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// </summary>
         private static PrefixSuffixPattern s_pattern = null;
 
-        public PropertyDrawerTemplate()
+        static PropertyDrawerTemplate()
         {
             s_pattern = new PrefixSuffixPattern();
             s_pattern.AddPrefix(DrawerShortcut);
