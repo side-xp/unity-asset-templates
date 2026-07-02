@@ -25,7 +25,7 @@ namespace SideXP.AssetTemplates.EditorOnly
     /// - The <see cref="CreateAssetFromTemplate"/> function is called, displaying a text field to name the asset<br/>
     /// - The user types the name of the asset<br/>
     /// - The "name edit" command is handled by an instance of <see cref="EndNameAssetTemplate"/> class, which will start iterating through
-    /// the exising asset template classes, and trigger the appropriate one if any
+    /// the existing asset template classes, and trigger the appropriate one if any
     /// </para>
     /// </remarks>
     public class AssetTemplatesProcessor : AssetPostprocessor
@@ -143,7 +143,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                     while (!string.IsNullOrWhiteSpace(tmpPath))
                     {
                         tmpPath = Path.GetDirectoryName(tmpPath);
-                        if (tmpPath.EndsWith("Editor"))
+                        if (Path.GetFileName(tmpPath) == EditorFolder)
                         {
                             isInEditorFolder = true;
                             break;
@@ -168,8 +168,8 @@ namespace SideXP.AssetTemplates.EditorOnly
                 }
 
                 // Create the asset with the given content
-                // Note that empty scripts are not allowed, and the default script tample will be used instead
-                if (output.Content != null || !output.Path.EndsWith("cs"))
+                // Note that empty scripts are not allowed, and the default script template will be used instead
+                if (output.Content != null || !output.Path.EndsWith(".cs"))
                 {
                     if (output.Content == null)
                         output.Content = string.Empty;
@@ -219,7 +219,11 @@ namespace SideXP.AssetTemplates.EditorOnly
         {
             s_selectedObjectBeforeAction = Selection.activeObject;
             var action = ScriptableObject.CreateInstance<EndNameAssetTemplate>();
+#if UNITY_6000_5_OR_NEWER
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(EntityId.None, action, DefaultFileName, null, null, true);
+#else
+            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, action, DefaultFileName, null, null, true);
+#endif
         }
 
     }

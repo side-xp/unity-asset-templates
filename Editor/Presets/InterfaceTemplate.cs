@@ -21,11 +21,11 @@ namespace SideXP.AssetTemplates.EditorOnly
         private static PrefixSuffixPattern s_pattern = null;
 
         /// <summary>
-        /// If enabled, always add a IE-" prefix in the generated script.
+        /// If enabled, always add a "I-" prefix in the generated script.
         /// </summary>
         public bool AlwaysUseLetterPrefix = true;
 
-        public InterfaceTemplate()
+        static InterfaceTemplate()
         {
             s_pattern = new PrefixSuffixPattern();
             s_pattern.AddPrefix("interface", PrefixSuffixPattern.PartOptions.Default);

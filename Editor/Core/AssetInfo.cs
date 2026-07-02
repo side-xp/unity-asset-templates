@@ -78,7 +78,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <summary>
         /// Renames the asset to generate.
         /// </summary>
-        /// <remarks>This function uses <see cref="AssetDatabase.GenerateUniqueAssetPath(string)"/> internally to make sure tthat the
+        /// <remarks>This function uses <see cref="AssetDatabase.GenerateUniqueAssetPath(string)"/> internally to make sure that the
         /// output path is valid. So the final path and name may end with an increment if another asset exists at the same path.</remarks>
         /// <param name="name">The name to set.</param>
         public void Rename(string name)

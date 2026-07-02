@@ -45,14 +45,13 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <inheritdoc cref="IAssetTemplate.CanGenerateAsset(AssetInfo)"/>
         public bool CanGenerateAsset(AssetInfo info)
         {
-            return info.Name == PackageManifestName;
+            // info.Name is the file name without its extension, so compare against the full "<name>.<ext>"
+            return $"{info.Name}.{info.Extension}" == PackageManifestName;
         }
 
         /// <inheritdoc cref="IAssetTemplate.GenerateAsset(AssetInfo, ref AssetOutputInfo)"/>
         public bool GenerateAsset(AssetInfo info, ref AssetOutputInfo output)
         {
-            info.Rename(PackageManifestName);
-
             PackageInfo packageInfo = new PackageInfo
             {
                 name = PackageDefaultName,
@@ -68,7 +67,8 @@ namespace SideXP.AssetTemplates.EditorOnly
                 }
             };
 
-            output.Path = info.Path;
+            // The manifest must be named exactly "package.json" (no unique-suffix, no re-appended extension)
+            output.Path = $"{info.Location}/{PackageManifestName}";
             output.Content = JsonUtility.ToJson(packageInfo, true);
             return true;
         }

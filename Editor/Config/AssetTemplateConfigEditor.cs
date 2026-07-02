@@ -17,7 +17,7 @@ namespace SideXP.AssetTemplates.EditorOnly
     public class AssetTemplateConfigEditor : Editor
     {
 
-        private const float TemplatFullTypeHeight = 12f;
+        private const float TemplateFullTypeHeight = 12f;
         private const float EnabledHeaderFieldWidth = MoreGUI.WidthS;
         private const float SettingsIndent = 16f;
 
@@ -32,7 +32,7 @@ namespace SideXP.AssetTemplates.EditorOnly
         private ReorderableList _assetTemplatesReorderableList = null;
 
         /// <summary>
-        /// The list of the asset templaate of which the settings have been expanded in the reorderable list view.
+        /// The list of the asset template of which the settings have been expanded in the reorderable list view.
         /// </summary>
         private List<Type> _expandedAssetTemplateTypes = new List<Type>();
 
@@ -80,12 +80,12 @@ namespace SideXP.AssetTemplates.EditorOnly
                         // Height for a single line, top and bottom padding
                         float height = EditorGUIUtility.singleLineHeight + MoreGUI.VMargin * 2;
 
-                        // Stop if the element is not expanded (display a sinle line)
+                        // Stop if the element is not expanded (display a single line)
                         if (!_expandedAssetTemplateTypes.Contains(assetTemplateType))
                             return height;
 
                         // Add height to display the type's full name
-                        height += TemplatFullTypeHeight;
+                        height += TemplateFullTypeHeight;
 
                         int fieldsCount = GetExposedFields(assetTemplateType).Length;
                         // Add height for each settings field to display
@@ -162,7 +162,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                         rect.x = position.x;
                         rect.width = position.width;
                         rect.y += rect.height;
-                        rect.height = TemplatFullTypeHeight;
+                        rect.height = TemplateFullTypeHeight;
                         EditorGUI.LabelField(rect, $"<i><size=9>{templateType.FullName}</size></i>", EditorStyles.label.RichText(true));
 
                         rect.height = EditorGUIUtility.singleLineHeight;

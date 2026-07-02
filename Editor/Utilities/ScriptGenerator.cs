@@ -100,10 +100,10 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// <summary>
         /// Appends a given base type to the main type.
         /// </summary>
-        /// <inheritdoc cref="CodeDomUtilities.InheritFrom(CodeTypeDeclaration, Type, CodeNamespace, CodeNamespace, bool)"/>
+        /// <inheritdoc cref="CodeDomUtility.InheritFrom(CodeTypeDeclaration, Type, CodeNamespace, CodeNamespace, bool)"/>
         public bool InheritFrom(Type baseType, bool noOverride = false)
         {
-            return CodeDomUtilities.InheritFrom(_mainClass, baseType, _importsNamespace, _domNamespace, noOverride);
+            return CodeDomUtility.InheritFrom(_mainClass, baseType, _importsNamespace, _domNamespace, noOverride);
         }
 
         /// <summary>
@@ -123,16 +123,16 @@ namespace SideXP.AssetTemplates.EditorOnly
         /// that namespace.</returns>
         public bool ContainsImport(string namespaceStr)
         {
-            return CodeDomUtilities.ContainsImport(namespaceStr, _importsNamespace, _domNamespace);
+            return CodeDomUtility.ContainsImport(namespaceStr, _importsNamespace, _domNamespace);
         }
 
         /// <summary>
         /// Gets a type reference from the script being generated.
         /// </summary>
-        /// <inheritdoc cref="CodeDomUtilities.GetTypeReference(Type, CodeNamespace, CodeNamespace, bool, bool)"/>
+        /// <inheritdoc cref="CodeDomUtility.GetTypeReference(Type, CodeNamespace, CodeNamespace, bool, bool)"/>
         public CodeTypeReference GetTypeReference(Type type, bool skipImport = false, bool fullyQualified = false)
         {
-            return CodeDomUtilities.GetTypeReference(type, _importsNamespace, _domNamespace, fullyQualified, skipImport);
+            return CodeDomUtility.GetTypeReference(type, _importsNamespace, _domNamespace, fullyQualified, skipImport);
         }
 
         /// <typeparam name="T"><inheritdoc cref="GetTypeReference(Type, bool, bool)" path="/param[@name='type']"/></typeparam>

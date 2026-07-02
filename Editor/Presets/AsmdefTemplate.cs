@@ -80,8 +80,8 @@ namespace SideXP.AssetTemplates.EditorOnly
                 }
             }
 
-            // Make asseùbly definition info
-            AsmdefInfo asmdefInto = new AsmdefInfo()
+            // Make assembly definition info
+            AsmdefInfo asmdefInfo = new AsmdefInfo()
             {
                 name = info.Name,
                 autoReferenced = AutoReferenced,
@@ -89,7 +89,7 @@ namespace SideXP.AssetTemplates.EditorOnly
                 rootNamespace = rootNamespace,
             };
 
-            output.Content = JsonUtility.ToJson(asmdefInto, true);
+            output.Content = JsonUtility.ToJson(asmdefInfo, true);
             return true;
         }
 

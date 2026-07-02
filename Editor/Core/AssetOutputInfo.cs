@@ -56,8 +56,13 @@ namespace SideXP.AssetTemplates.EditorOnly
             if (string.IsNullOrWhiteSpace(extension))
                 return Path;
 
-            _path = Path.Substring(0, Path.Length - (System.IO.Path.GetExtension(Path).Length - 1));
-            _path += extension;
+            // Strip the current extension (including the "." char) if any, then append the new one
+            string currentExtension = System.IO.Path.GetExtension(Path);
+            string pathWithoutExtension = string.IsNullOrEmpty(currentExtension)
+                ? Path
+                : Path.Substring(0, Path.Length - currentExtension.Length);
+
+            _path = $"{pathWithoutExtension}.{extension}";
             return _path;
         }
 
