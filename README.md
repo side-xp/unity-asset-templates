@@ -54,7 +54,7 @@ Create custom editors easily by just selecting the asset for which to create tha
 Complete documentation available at https://side-xp.github.io/unity-asset-templates
 
 <!-- docs:remove:end -->
-If you need help or just want to chat with the community and the *Sideways Experiments* core team, you're welcome to join our [Discord server](https://discord.gg/bMK2d47JaE)!
+If you need help or just want to chat with the community and the *Sideways Experiments* core team, you're welcome to join our [Discord server](https://discord.gg/G49RUZ9F2N)!
 
 ## Contributing
 
