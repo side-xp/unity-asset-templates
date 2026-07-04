@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.5.1](https://github.com/side-xp/unity-asset-templates/compare/v1.5.0...v1.5.1) (2026-07-04)
+
+
+### Bug Fixes
+
+* fixed Discord invitation ([50faf73](https://github.com/side-xp/unity-asset-templates/commit/50faf733c9edbfe7cf4ca466b32ff8c6bfa282f6))
+
 ## [1.5.0](https://github.com/side-xp/unity-asset-templates/compare/v1.4.0...v1.5.0) (2026-07-02)
 
 
