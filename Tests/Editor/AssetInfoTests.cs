@@ -1,5 +1,3 @@
-using System;
-
 using NUnit.Framework;
 
 using SideXP.AssetTemplates.EditorOnly;
