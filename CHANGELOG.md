@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.6.0](https://github.com/side-xp/unity-asset-templates/compare/v1.5.1...v1.6.0) (2026-11-22)
+
+
+### Features
+
+* migrate to core lib 1.6 ([589564f](https://github.com/side-xp/unity-asset-templates/commit/589564f773d450e31efc456e179c5edea45a9881))
+
 ## [1.5.1](https://github.com/side-xp/unity-asset-templates/compare/v1.5.0...v1.5.1) (2026-07-04)
 
 
