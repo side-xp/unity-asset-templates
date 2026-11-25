@@ -5,6 +5,7 @@ nav:
   # The plugin sorts the index like any other page, so pin it first.
   - README.md
   - installation.md
+  - getting-started.md
   # Everything not listed explicitly, in the default order.
   - "*"
   # Generated C# API reference, kept last. Absent when the package ships no C#: the build then logs
